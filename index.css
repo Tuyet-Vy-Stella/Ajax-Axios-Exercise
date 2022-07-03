@@ -86,7 +86,7 @@
 .products .product-table{
     margin-top: 20px;
 }
-.products .table{
+.products .table thead{
     color: #ffc44d;
     background-color: gray;
 }
