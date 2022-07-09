@@ -118,19 +118,55 @@ function updateProduct(idClick){
 function deleteProduct(idClick){
     
     var promise = axios({
-        url:'http://svcy.myclass.vn/api/Product/DeleteProduct' + idClick,
+        url:'http://svcy.myclass.vn/api/Product/DeleteProduct/' + idClick,
         method:'DELETE'
     });
 
     promise.then(function(result){
         console.log(result.data);
-        // getProductList();
+        getProductList();
     });
 
     promise.catch(function(error){
         console.log(error);
     });
 }
+
+
+// SEARCHING
+
+document.getElementById('btn-search').onclick = function(nameInput){
+    var result = [];
+    var keyword = document.getElementById('search').value;
+
+    for(var i = 0; i < products.length; i++){
+        var foundProduct = products[i];
+        if(foundProduct.rank === keyword){
+            result.push(foundProduct);
+        }
+    }
+    renderTable();
+
+    var promise = axios({
+        url:'http://svcy.myclass.vn/api/Product/SearchByName?name=' + nameInput,
+        method: 'GET'
+    });
+    
+    promise.then(function(result){
+        console.log(result.data)
+        renderTable();
+    });
+    
+    promise.catch(function(error){
+        console.log(error)
+    });
+}
+// =========> Sai
+
+
+    
+
+
 
 window.onload = function(){
     getProductList();
